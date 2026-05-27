@@ -2024,6 +2024,8 @@ void u8g2_SetupBuffer_SDL_128x64_4(u8g2_t *u8g2, const u8g2_cb_t *u8g2_cb);
 void u8g2_SetupBuffer_SDL_128x64_1(u8g2_t *u8g2, const u8g2_cb_t *u8g2_cb);
 void u8g2_SetupBuffer_SDL_256x128(u8g2_t *u8g2, const u8g2_cb_t *u8g2_cb);
 
+void u8g2_SetupBuffer_SDL_256x64_4(u8g2_t *u8g2, const u8g2_cb_t *u8g2_cb);
+
 /*==========================================*/
 /* u8x8_d_tga.c */
 void u8g2_SetupBuffer_TGA_DESC(u8g2_t *u8g2, const u8g2_cb_t *u8g2_cb);
