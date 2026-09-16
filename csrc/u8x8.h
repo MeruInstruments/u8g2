@@ -164,7 +164,19 @@ uint8_t u8x8_pgm_read_esp(const uint8_t * addr);   /* u8x8_8x8.c */
 #  define U8X8_PROGMEM
 #endif
 
-
+/* Meru fork addition: on the STM32H750 cross build, font glyph tables are
+ * pure data (indexed, never executed as instructions) and are only ever
+ * touched during a display redraw (~30-60Hz), not from the audio ISR --
+ * so they're safe, low-risk candidates to move out of the scarce 128KB
+ * internal FLASH and into the QSPI external flash chip's memory-mapped
+ * region instead (8MB, already enabled for execute-in-place by
+ * DaisySeed::Init -- see per/qspi.h's DSY_QSPI_DATA / .qspiflash_data).
+ * MERU_QSPI_FONTS is defined only for the ARM `u8g2` CMake target (see
+ * root CMakeLists.txt), never for the desktop u8g2_sdl sim build, which
+ * has no QSPI/linker-section concept at all. */
+#if defined(MERU_QSPI_FONTS)
+#  define U8X8_FONT_SECTION(name) __attribute__((section(".qspiflash_data." name)))
+#endif
 
 #ifndef U8X8_FONT_SECTION
 #  define U8X8_FONT_SECTION(name) 
